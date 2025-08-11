@@ -1,0 +1,64 @@
+{
+  "name": "@shulkers/api-fetcher",
+  "version": "1.0.0",
+  "description": "A comprehensive TypeScript API wrapper for Minecraft plugin repositories (Spiget, Modrinth, Hangar)",
+  "type": "module",
+  "main": "./dist/cjs/index.cjs",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/cjs/index.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "bun run build:types && bun run build:esm && bun run build:cjs",
+    "build:types": "tsc --emitDeclarationOnly --outDir dist/types",
+    "build:esm": "bun build src/index.ts --outdir dist/esm --format esm --target node",
+    "build:cjs": "bun build src/index.ts --outfile dist/cjs/index.cjs --format cjs --target node --external ky",
+    "clean": "rimraf dist",
+    "prepublishOnly": "bun run clean && bun run build",
+    "release": "npm publish --access public"
+  },
+  "keywords": [
+    "minecraft",
+    "spigot",
+    "spiget",
+    "modrinth",
+    "hangar",
+    "papermc"
+  ],
+  "author": "Crysta1221",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Shulkers-Project/api-fetcher.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Shulkers-Project/api-fetcher/issues"
+  },
+  "homepage": "https://github.com/Shulkers-Project/api-fetcher#readme",
+  "dependencies": {
+    "ky": "^1.8.1"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "rimraf": "^5.0.5",
+    "typescript": "^5"
+  },
+  "engines": {
+    "node": ">=22",
+    "bun": ">=1.0.0"
+  }
+}
